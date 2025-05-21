@@ -1,10 +1,20 @@
 const express = require('express');
-const passport = require('passport');
 const router = express.Router();
-const { registerUser, loginUser } = require('../apisettings/authController');
+const passport = require('passport');
 
+const {
+  registerUser,
+  loginUser,
+  forgotUsername,
+  forgotPassword,
+  resetPassword
+} = require('../apisettings/authController');
+
+// Registrazione e login classico
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+
+// Google 
 router.get('/google', passport.authenticate('google', {
   scope: ['profile', 'email']
 }));
@@ -19,5 +29,10 @@ router.get(
     });
   }
 );
+
+// Recupero credenziali
+router.post('/forgot-username', forgotUsername);
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password/:token', resetPassword);
 
 module.exports = router;

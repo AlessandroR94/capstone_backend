@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const generateToken = require('../utility/generateToken');
+const sendEmail = require('../utility/sendEmail');
 
 const registerUser = async (req, res) => {
   const { username, nome, cognome, dataDiNascita, email, password } = req.body;
@@ -92,6 +93,101 @@ const loginUser = async (req, res) => {
   }
 };
 
+const forgotUsername = async (req, res) => {
+  const { email } = req.body;
 
-module.exports = { loginUser, registerUser };
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: 'Utente non trovato' });
+
+    await sendEmail({
+      to: user.email,
+      subject: 'Recupero username',
+      html: `<p>Ciao ${user.nome}, il tuo username è: <strong>${user.username}</strong></p>`
+    });
+
+    res.json({ message: 'Email con username inviata' });
+  } catch (err) {
+    res.status(500).json({ message: 'Errore durante il recupero' });
+  }
+};
+
+const crypto = require('crypto');
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: 'Utente non trovato' });
+
+    const token = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 1000 * 60 * 15;
+    await user.save();
+
+    await sendEmail({
+  to: user.email,
+  subject: 'Password modificata con successo',
+  html: `
+    <p>Ciao ${user.nome},</p>
+    <p>La tua password è stata modificata correttamente.</p>
+    <p>Se non sei stato tu, ti consigliamo di contattarci immediatamente.</p>  `
+  });
+
+
+    const resetLink = `http://localhost:3000/reset-password/${token}`;
+
+    await sendEmail({
+      to: user.email,
+      subject: 'Reimposta la tua password',
+      html: `
+        <p>Ciao ${user.nome},</p>
+        <p>Clicca sul link per reimpostare la password:</p>
+        <a href="${resetLink}">${resetLink}</a>
+        <p>Scade tra 15 minuti.</p>
+      `
+    });
+
+    res.json({ message: 'Email di reset inviata' });
+  } catch (err) {
+    res.status(500).json({ message: 'Errore durante il reset password' });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Token non valido o scaduto' });
+    }
+
+    // Validazione nuova password
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(newPassword)) {
+      return res.status(400).json({
+        message: 'La nuova password deve avere almeno 8 caratteri, una lettera maiuscola e un numero'
+      });
+    }
+
+    user.password = newPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    res.json({ message: 'Password aggiornata con successo' });
+  } catch (err) {
+    res.status(500).json({ message: 'Errore durante il salvataggio della nuova password' });
+  }
+};
+
+
+module.exports = { loginUser, registerUser, forgotUsername, forgotPassword, resetPassword };
 

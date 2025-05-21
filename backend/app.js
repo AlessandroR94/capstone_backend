@@ -11,11 +11,13 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Routes (da aggiungere man mano)
+
+// Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/games', require('./routes/gameRoutes'));
 app.use(passport.initialize());
 app.use('/api/rentals', require('./routes/rentalRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 
 module.exports = app;

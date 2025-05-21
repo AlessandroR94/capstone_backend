@@ -8,7 +8,11 @@ const userSchema = new mongoose.Schema({
   dataDiNascita: { type: Date, required: false },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  isAdmin: { type: Boolean, default: false }
+  isAdmin: { type: Boolean, default: false },
+  imageUrl: { type: String, default: '' },
+  isProfileComplete: { type: Boolean, default: false },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Date },
 }, {
   timestamps: true
 });
