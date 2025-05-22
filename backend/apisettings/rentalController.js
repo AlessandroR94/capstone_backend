@@ -83,7 +83,7 @@ const getAllRentals = async (req, res) => {
     const rentals = await Rental.find().populate('user').populate('game');
     res.json(rentals);
   } catch (err) {
-    res.status(500).json({ message: 'Errore nel recupero dei noleggi globali' });
+    res.status(500).json({ message: 'Errore nel recupero dei noleggi' });
   }
 };
 
@@ -100,6 +100,7 @@ const renewExpiredRentals = async () => {
     const newEndDate = new Date();
     newEndDate.setDate(newEndDate.getDate() + originalDays);
 
+    // Crea un nuovo noleggio rinnovato
     await Rental.create({
       user: rental.user,
       game: rental.game,
@@ -109,26 +110,29 @@ const renewExpiredRentals = async () => {
       status: 'attivo'
     });
 
+    // Marca quello vecchio come scaduto
     rental.status = 'scaduto';
     await rental.save();
+
+    //Email per ogni noleggio rinnovato
+    const user = await User.findById(rental.user);
+    const game = await Game.findById(rental.game);
+
+    await sendEmail({
+      to: user.email,
+      subject: 'Noleggio rinnovato automaticamente',
+      html: `
+        <p>Ciao ${user.nome},</p>
+        <p>Il tuo noleggio per <strong>${game.title}</strong> è stato rinnovato automaticamente per altri ${originalDays} giorni.</p>
+        <p>Prezzo: €${rental.totalPrice.toFixed(2)}</p>
+        <p>Grazie per aver scelto Gamebusters!</p>
+      `
+    });
   }
 
-  const user = await User.findById(rental.user);
-
-await sendEmail({
-  to: user.email,
-  subject: 'Noleggio rinnovato automaticamente',
-  html: `
-    <p>Ciao ${user.nome},</p>
-    <p>Il tuo noleggio per <strong>${game.title}</strong> è stato rinnovato automaticamente per altri ${originalDays} giorni.</p>
-    <p>Prezzo: €${rental.totalPrice.toFixed(2)}</p>
-    <p>Grazie per aver scelto Gamebusters!</p>
-  `
-});
-
-
-  console.log(`✅ Rinnovati ${expiredRentals.length} noleggi automaticamente`);
+  console.log(`Rinnovati ${expiredRentals.length} noleggi automaticamente`);
 };
+
 
 
 module.exports = {
