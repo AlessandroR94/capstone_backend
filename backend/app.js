@@ -19,6 +19,8 @@ app.use('/api/games', require('./routes/gameRoutes'));
 app.use(passport.initialize());
 app.use('/api/rentals', require('./routes/rentalRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/payments', require('./routes/paymentRoutes'));
+
 
 
 module.exports = app;
