@@ -8,6 +8,7 @@ const passport = require('passport');
 const app = express();
 
 // Middleware
+app.use('/api/stripe', require('./routes/stripeWebhook'));
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
