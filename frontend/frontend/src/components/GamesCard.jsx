@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function GamesCard({ game }) {
   return (
     <div className="col-md-3 mb-4">
@@ -13,11 +15,15 @@ export default function GamesCard({ game }) {
           <p className="card-text text-muted">{game.platform}</p>
           <p className="card-text">€{game.dailyPrice.toFixed(2)} / giorno</p>
           <p className={`card-text ${game.quantityAvailable > 0 ? 'text-success' : 'text-danger'}`}>
-            Disponibilità: {game.quantityAvailable > 0 ? `${game.quantityAvailable} disponibili` : 'Non disponibile'}
+            Disponibilità: {game.quantityAvailable > 0 ? `${game.quantityAvailable}` : 'Non disponibile'}
           </p>
-          <button className="btn btn-primary mt-auto" disabled={game.quantityAvailable === 0}>
+          <Link
+            to={`/rent/${game._id}`}
+            className="btn btn-primary mt-auto"
+            disabled={game.quantityAvailable === 0}
+          >
             Noleggia
-          </button>
+          </Link>
         </div>
       </div>
     </div>

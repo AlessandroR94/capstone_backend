@@ -48,18 +48,33 @@ export default function Navbar() {
                 </li>
               </>
             ) : (
-              <>
-                <li className="nav-item">
-                  <span className="navbar-text me-3 text-white">
-                    {user.username}
-                  </span>
-                </li>
-                <li className="nav-item">
-                  <button className="btn btn-outline-light btn-sm" onClick={handleLogout}>
-                    Logout
-                  </button>
-                </li>
-              </>
+              <li className="nav-item dropdown">
+                <div
+                  className="dropdown-toggle d-flex align-items-center"
+                  data-bs-toggle="dropdown"
+                  style={{ cursor: 'pointer' }}
+                >
+                  {user.imageUrl ? (
+                    <img
+                      src={user.imageUrl}
+                      alt="Profilo"
+                      className="rounded-circle"
+                      style={{ width: '32px', height: '32px', objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <div
+                      className="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center"
+                      style={{ width: '32px', height: '32px', fontSize: '0.9rem' }}
+                    >
+                      {user.nome?.charAt(0).toUpperCase()}{user.cognome?.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                </div>
+                <ul className="dropdown-menu dropdown-menu-end mt-2">
+                  <li><Link className="dropdown-item" to="/profile">Profilo</Link></li>
+                  <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
+                </ul>
+              </li>
             )}
           </ul>
         </div>

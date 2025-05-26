@@ -7,9 +7,18 @@ const rentalSchema = new mongoose.Schema({
   endDate: { type: Date, required: true },
   days: { type: Number, required: true },
   totalPrice: { type: Number, required: true },
-  status: { type: String, enum: ['attivo', 'restituito', 'scaduto'], default: 'attivo' }
+  status: { type: String, enum: ['attivo', 'restituito', 'scaduto'], default: 'attivo' },
+  shippingInfo: {
+    nome: String,
+    cognome: String,
+    indirizzo: String,
+    città: String,
+    provincia: String,
+    telefono: String
+  }
 }, {
   timestamps: true
 });
+
 
 module.exports = mongoose.model('Rental', rentalSchema);

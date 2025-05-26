@@ -127,10 +127,22 @@ const filterAndSearchGames = async (req, res) => {
   }
 };
 
+const getGameById = async (req, res) => {
+  try {
+    const game = await Game.findById(req.params.id);
+    if (!game) return res.status(404).json({ message: 'Gioco non trovato' });
+    res.json(game);
+  } catch (err) {
+    res.status(500).json({ message: 'Errore' });
+  }
+};
+
+
 
 
 module.exports = {
   importGamesFromRawg,
   getGamesByPlatform,
-  filterAndSearchGames
+  filterAndSearchGames,
+  getGameById
 };

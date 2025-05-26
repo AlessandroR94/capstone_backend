@@ -6,7 +6,7 @@ const Game = require('../models/Game');
 
 
 const createRental = async (req, res) => {
-  const { gameId, days } = req.body;
+  const { gameId, days, shipping } = req.body;
 
   try {
     const game = await Game.findById(gameId);
@@ -25,7 +25,9 @@ const createRental = async (req, res) => {
       game: gameId,
       days,
       endDate,
-      totalPrice
+      totalPrice,
+      shippingInfo: shipping,
+      status: 'attivo'
     });
 
     game.quantityAvailable -= 1;
@@ -38,13 +40,20 @@ const createRental = async (req, res) => {
 };
 
 const getMyRentals = async (req, res) => {
+  console.log('🔍 Utente autenticato:', req.user);
+
   try {
-    const rentals = await Rental.find({ user: req.user._id }).populate('game');
+    const rentals = await Rental.find({ user: req.user._id })
+      .populate('game')
+      .sort({ createdAt: -1 });
+
     res.json(rentals);
   } catch (err) {
     res.status(500).json({ message: 'Errore nel recupero dei noleggi' });
   }
 };
+
+
 
 const returnRental = async (req, res) => {
   const { id } = req.params;
