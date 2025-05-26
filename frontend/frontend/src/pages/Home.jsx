@@ -2,21 +2,26 @@ import { useEffect, useState } from 'react';
 import { fetchGames } from '../api/gamesApi';
 import GamesCard from '../components/GamesCard';
 import SearchBar from '../components/SearchBar';
+import Pagination from '../components/Pagination';
+
+const ITEMS_PER_PAGE = 25;
 
 export default function Home() {
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [onlyAvailable, setOnlyAvailable] = useState(false);
   const [sort, setSort] = useState('title-asc');
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetchGames().then(setGames);
+    fetchGames().then((data) => {
+      setGames(data);
+      setCurrentPage(1); // reset pagina su nuovo fetch
+    });
   }, []);
 
   const filteredGames = games
-    .filter((g) =>
-      g.title.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    .filter((g) => g.title.toLowerCase().includes(searchTerm.toLowerCase()))
     .filter((g) => (onlyAvailable ? g.quantityAvailable > 0 : true))
     .sort((a, b) => {
       if (sort === 'title-asc') return a.title.localeCompare(b.title);
@@ -24,13 +29,18 @@ export default function Home() {
       return 0;
     });
 
+  const totalPages = Math.ceil(filteredGames.length / ITEMS_PER_PAGE);
+  const paginatedGames = filteredGames.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
   return (
     <div className="container mt-4">
       <h2 className="mb-4">Catalogo completo</h2>
 
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      {/* Filtro + ordinamento */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div className="form-check">
           <input
@@ -56,10 +66,16 @@ export default function Home() {
       </div>
 
       <div className="row">
-        {filteredGames.map((game) => (
+        {paginatedGames.map((game) => (
           <GamesCard key={game._id} game={game} />
         ))}
       </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 }

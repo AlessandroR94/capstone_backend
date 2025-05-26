@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { fetchGames } from '../api/gamesApi';
+import axios from 'axios';
 import GamesCard from '../components/GamesCard';
 import SearchBar from '../components/SearchBar';
 import Pagination from '../components/Pagination';
 
 const ITEMS_PER_PAGE = 20;
 
-export default function PlayStation() {
+export default function Nintendo() {
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [onlyAvailable, setOnlyAvailable] = useState(false);
@@ -14,7 +14,12 @@ export default function PlayStation() {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetchGames('playstation').then(setGames);
+    axios
+      .get('http://localhost:3001/api/games/nintendo')
+      .then((res) => setGames(res.data))
+      .catch((err) =>
+        console.error('Errore nel caricamento giochi Nintendo:', err)
+      );
   }, []);
 
   const filteredGames = games
@@ -33,9 +38,9 @@ export default function PlayStation() {
   );
 
   return (
-    <div className="page-playstation">
+    <div className="page-nintendo">
       <div className="container mt-4">
-        <h2 className="mb-4">Giochi PlayStation</h2>
+        <h2 className="mb-4">Giochi Nintendo</h2>
 
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
@@ -68,8 +73,8 @@ export default function PlayStation() {
             <GamesCard
               key={game._id}
               game={game}
-              cardClass="card-playstation"
-              buttonClass="btn-playstation"
+              cardClass="card-nintendo"
+              buttonClass="btn-nintendo"
             />
           ))}
         </div>
@@ -78,7 +83,7 @@ export default function PlayStation() {
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
-          theme="playstation"
+          theme="nintendo"
         />
       </div>
     </div>

@@ -82,14 +82,20 @@ export default function RentPage() {
             <div className="row">
                 <div className="col-md-6">
                     <h5>📅 Seleziona durata</h5>
-                    <select className="form-select mb-3" value={days} onChange={(e) => setDays(Number(e.target.value))}>
+                    <select
+                        className="form-select mb-3"
+                        value={days}
+                        onChange={(e) => setDays(Number(e.target.value))}
+                    >
                         <option value={7}>7 giorni</option>
                         <option value={14}>14 giorni</option>
                         <option value={30}>30 giorni</option>
                     </select>
 
                     <h5 className="mt-4">📦 Dati di spedizione</h5>
-                    {['nome', 'cognome', 'indirizzo', 'città', 'provincia', 'telefono'].map(field => (
+
+                    {/* Altri campi testo */}
+                    {['nome', 'cognome', 'indirizzo', 'città', 'provincia'].map((field) => (
                         <input
                             key={field}
                             type="text"
@@ -102,7 +108,25 @@ export default function RentPage() {
                         />
                     ))}
 
+                    {/* Telefono numerico */}
+                    <input
+                        type="text"
+                        name="telefono"
+                        className="form-control mb-2"
+                        placeholder="Telefono"
+                        value={form.telefono}
+                        onChange={handleChange}
+                        onKeyDown={(e) => {
+                            if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
+                                e.preventDefault();
+                            }
+                        }}
+                        required
+                    />
+
+
                     <h5 className="mt-4">💳 Dati carta</h5>
+
                     <input
                         type="text"
                         name="cardName"
@@ -110,15 +134,27 @@ export default function RentPage() {
                         placeholder="Titolare carta"
                         value={form.cardName}
                         onChange={handleChange}
+                        required
                     />
+
+                    {/* Numero carta numerico a 16 cifre */}
                     <input
                         type="text"
                         name="cardNumber"
                         className="form-control mb-2"
-                        placeholder="Numero carta"
+                        placeholder="Numero carta (16 cifre)"
                         value={form.cardNumber}
                         onChange={handleChange}
+                        maxLength="16"
+                        onKeyDown={(e) => {
+                            if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
+                                e.preventDefault();
+                            }
+                        }}
+                        required
                     />
+
+                    {/* Scadenza in formato MM/YY */}
                     <input
                         type="text"
                         name="expiry"
@@ -126,7 +162,15 @@ export default function RentPage() {
                         placeholder="Scadenza (MM/YY)"
                         value={form.expiry}
                         onChange={handleChange}
+                        maxLength="5"
+                        onKeyDown={(e) => {
+                            if (!/[0-9/]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
+                                e.preventDefault();
+                            }
+                        }}
+                        required
                     />
+
 
                     <button className="btn btn-success mt-3" onClick={handleSubmit}>
                         Procedi con il pagamento

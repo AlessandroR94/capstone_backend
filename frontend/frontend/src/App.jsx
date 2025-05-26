@@ -1,9 +1,13 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import PageFade from './components/PageFade';
+
 import Home from './pages/Home';
 import Games from './pages/Games';
 import Xbox from './pages/Xbox';
 import PlayStation from './pages/PlayStation';
+import Nintendo from './pages/Nintendo';
 import RentPage from './pages/RentPage';
 import Login from './pages/Login';
 import GoogleSuccess from './pages/GoogleSuccess';
@@ -13,16 +17,17 @@ import Register from './pages/Register';
 import RecuperoUsername from './pages/RecuperoUsername';
 import RecuperoPassword from './pages/RecuperoPassword';
 
-function App() {
-  return (
-    <Router>
-      <Navbar />
+function AppContent() {
+  const location = useLocation();
 
-      <Routes>
+  return (
+    <PageFade location={location}>
+      <Routes location={location}>
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<Games />} />
         <Route path="/games/xbox" element={<Xbox />} />
         <Route path="/games/playstation" element={<PlayStation />} />
+        <Route path="/games/nintendo" element={<Nintendo />} />
         <Route path="/rent/:gameId" element={<RentPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/google-success" element={<GoogleSuccess />} />
@@ -32,8 +37,16 @@ function App() {
         <Route path="/recupero-username" element={<RecuperoUsername />} />
         <Route path="/recupero-password" element={<RecuperoPassword />} />
       </Routes>
-    </Router>
+    </PageFade>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <Navbar />
+      <AppContent />
+      <Footer />
+    </Router>
+  );
+}
