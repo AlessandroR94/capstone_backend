@@ -75,6 +75,7 @@ export default function Home() {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
+        theme="nintendo"
       />
     </div>
   );
