@@ -36,6 +36,7 @@ function AppContent() {
         <Route path="/register" element={<Register />} />
         <Route path="/recupero-username" element={<RecuperoUsername />} />
         <Route path="/recupero-password" element={<RecuperoPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
     </PageFade>
   );
