@@ -33,6 +33,24 @@ const createRental = async (req, res) => {
     game.quantityAvailable -= 1;
     await game.save();
 
+    // Recupera utente per email
+    const user = await User.findById(req.user._id);
+
+    // INVIO EMAIL CONFERMA NOLEGGIO
+    await sendEmail({
+      to: user.email,
+      subject: `Conferma noleggio – ${game.title}`,
+      html: `
+    <h2>Ciao ${user.nome},</h2>
+    <p>Hai noleggiato <strong>${game.title}</strong> per <strong>${days} giorni</strong>.</p>
+    <p>Totale pagato: <strong>€${totalPrice.toFixed(2)}</strong></p>
+    <p>Lo riceverai all'indirizzo indicato: <br><em>${shipping.indirizzo}, ${shipping.città}, ${shipping.provincia}</em></p>
+    <hr />
+    <p>Grazie per aver scelto GameBusters! 🎮</p>
+  `
+    });
+
+
     res.status(201).json(rental);
   } catch (err) {
     res.status(500).json({ message: 'Errore nel noleggio', error: err.message });
@@ -149,5 +167,5 @@ module.exports = {
   getMyRentals,
   returnRental,
   getAllRentals,
- renewExpiredRentals,
+  renewExpiredRentals,
 };

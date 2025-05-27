@@ -2,6 +2,7 @@ const User = require('../models/User');
 const generateToken = require('../utility/generateToken');
 const sendEmail = require('../utility/sendEmail');
 
+
 const registerUser = async (req, res) => {
   const { username, nome, cognome, dataDiNascita, email, password } = req.body;
 
@@ -18,10 +19,10 @@ const registerUser = async (req, res) => {
       message: 'La password deve avere almeno 8 caratteri, una lettera maiuscola e un numero'
     });
   }
-  
+
 
   // Età minima 16 anni (Esiste un metodo di scrittura più raccolto? Chiedere ad Alessandro)
-  
+
   const oggi = new Date();
   const dataNascita = new Date(dataDiNascita);
   const millisecondiInAnno = 1000 * 60 * 60 * 24 * 365.25;
@@ -53,6 +54,20 @@ const registerUser = async (req, res) => {
     });
 
     if (user) {
+      // INVIO EMAIL BENVENUTO
+      await sendEmail({
+        to: user.email,
+        subject: 'Benvenuto su GameBusters 🎮',
+        html: `
+      <h2>Ciao ${user.nome},</h2>
+      <p>Grazie per esserti registrato su <strong>GameBusters</strong>!</p>
+      <p>Ora puoi noleggiare giochi per Xbox, PlayStation e Nintendo.</p>
+      <p>Buon divertimento! 🎉</p>
+      <hr />
+      <small>Non rispondere a questa email.</small>
+    `
+      });
+
       res.status(201).json({
         _id: user._id,
         username: user.username,
@@ -127,13 +142,13 @@ const forgotPassword = async (req, res) => {
     await user.save();
 
     await sendEmail({
-  to: user.email,
-  subject: 'Password modificata con successo',
-  html: `
+      to: user.email,
+      subject: 'Password modificata con successo',
+      html: `
     <p>Ciao ${user.nome},</p>
     <p>La tua password è stata modificata correttamente.</p>
     <p>Se non sei stato tu, ti consigliamo di contattarci immediatamente.</p>  `
-  });
+    });
 
 
     const resetLink = `http://localhost:3000/reset-password/${token}`;
