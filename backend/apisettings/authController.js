@@ -141,17 +141,8 @@ const forgotPassword = async (req, res) => {
     user.resetPasswordExpires = Date.now() + 1000 * 60 * 15;
     await user.save();
 
-    await sendEmail({
-      to: user.email,
-      subject: 'Password modificata con successo',
-      html: `
-    <p>Ciao ${user.nome},</p>
-    <p>La tua password è stata modificata correttamente.</p>
-    <p>Se non sei stato tu, ti consigliamo di contattarci immediatamente.</p>  `
-    });
-
-
     const resetLink = `http://localhost:3000/reset-password/${token}`;
+
 
     await sendEmail({
       to: user.email,
@@ -196,6 +187,16 @@ const resetPassword = async (req, res) => {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
     await user.save();
+
+await sendEmail({
+  to: user.email,
+  subject: 'Password modificata con successo',
+  html: `
+    <p>Ciao ${user.nome},</p>
+    <p>La tua password è stata modificata correttamente.</p>
+    <p>Se non sei stato tu, contattaci subito.</p>
+  `
+});
 
     res.json({ message: 'Password aggiornata con successo' });
   } catch (err) {
