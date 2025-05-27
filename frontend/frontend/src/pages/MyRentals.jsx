@@ -7,19 +7,24 @@ export default function MyRentals() {
   const [rentals, setRentals] = useState([]);
 
   useEffect(() => {
-    const fetchRentals = async () => {
-      try {
-        const res = await axios.get('http://localhost:3001/api/rentals/me', {
-          headers: { Authorization: `Bearer ${user.token}` }
-        });
-        setRentals(res.data);
-      } catch (err) {
-        console.error('Errore nel caricamento noleggi:', err);
-      }
-    };
+  if (!user) return;
 
-    if (user) fetchRentals();
-  }, [user]);
+  const fetchRentals = async () => {
+    try {
+      const res = await axios.get(`http://locahost3001:/api/rentals/me`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        }
+      });
+      setRentals(res.data);
+    } catch (err) {
+      console.error('Errore nel caricamento noleggi:', err);
+    }
+  };
+
+  fetchRentals();
+}, [user]);
+
 
   if (!user) return <p>Effettua il login per vedere i tuoi noleggi.</p>;
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SuccessMessage from '../components/SuccessMessage';
 
 export default function Register() {
   const { login } = useAuth();
@@ -17,6 +18,7 @@ export default function Register() {
   });
 
   const [error, setError] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (e) => {
     setForm(prev => ({
@@ -30,10 +32,9 @@ export default function Register() {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:3001/api/auth/register', form);
+      const res = await axios.post(`http://localhost:3001/api/auth/register`, form);
       login(res.data);
-      alert('Registrazione completata!');
-      navigate('/');
+      setShowSuccess(true);
     } catch (err) {
       setError(err.response?.data?.message || 'Errore nella registrazione');
     }
@@ -41,6 +42,8 @@ export default function Register() {
 
   return (
     <div className="container mt-5" style={{ maxWidth: 500 }}>
+      {showSuccess && <SuccessMessage message="Registrazione completata con successo!" />}
+
       <h3 className="mb-4">Registrazione</h3>
 
       {error && <div className="alert alert-danger">{error}</div>}

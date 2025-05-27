@@ -197,3 +197,31 @@ footer a:hover {
   color: white !important;
 }
 
+.success-toast {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  display: flex;
+  justify-content: center;
+  animation: fadeInOut 4s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.toast-content {
+  background-color: rgba(40, 167, 69, 0.15); /* verde chiaro trasparente */
+  color: #198754; /* verde più visibile per il testo e l'emoji */
+  border: 1px solid #198754;
+  font-weight: 500;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3px); /* opzionale, per un effetto più elegante */
+}
