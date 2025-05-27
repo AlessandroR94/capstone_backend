@@ -16,6 +16,7 @@ import MyRentals from './pages/MyRentals';
 import Register from './pages/Register';
 import RecuperoUsername from './pages/RecuperoUsername';
 import RecuperoPassword from './pages/RecuperoPassword';
+import ResetPassword from './pages//ResetPassword'
 
 function AppContent() {
   const location = useLocation();
