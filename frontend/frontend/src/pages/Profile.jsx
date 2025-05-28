@@ -189,12 +189,12 @@ export default function Profile() {
                         {rental.status.charAt(0).toUpperCase() + rental.status.slice(1)}
                       </span>
                       {rental.status === 'attivo' && (
-                        <button
+                        <span
                           className="badge badge-animated badge-termina"
                           onClick={() => handleEndRental(rental._id)}
                         >
                           Termina
-                        </button>
+                        </span>
                       )}
                     </td>
                   </tr>

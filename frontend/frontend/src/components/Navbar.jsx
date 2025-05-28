@@ -39,7 +39,7 @@ export default function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarMenu">
-          <ul className="navbar-nav me-auto gap-lg-3 align-items-center">
+          <ul className="navbar-nav me-auto gap-lg-3">
             <li className="nav-item"><Link className="nav-link" to="/games/xbox">Xbox</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/games/playstation">PlayStation</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/games/nintendo">Nintendo</Link></li>
