@@ -19,7 +19,7 @@ export default function ResetPassword() {
         newPassword
       });
 
-      setMessage('✅ Password aggiornata con successo!');
+      setMessage('Password aggiornata con successo!');
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
       setMessage(err.response?.data?.message || 'Errore durante il reset');

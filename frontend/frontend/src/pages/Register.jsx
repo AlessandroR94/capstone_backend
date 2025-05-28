@@ -41,7 +41,7 @@ export default function Register() {
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: 500 }}>
+    <div className="container mt-5" style={{ maxWidth: 400 }}>
       {showSuccess && <SuccessMessage message="Registrazione completata con successo!" />}
 
       <h3 className="mb-4">Registrazione</h3>
