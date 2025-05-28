@@ -190,10 +190,10 @@ export default function Profile() {
                       </span>
                       {rental.status === 'attivo' && (
                         <button
-                          className="btn btn-outline-light btn-sm ms-2 px-2 py-0"
+                          className="badge badge-animated badge-termina"
                           onClick={() => handleEndRental(rental._id)}
                         >
-                          Termina anticipatamente
+                          Termina
                         </button>
                       )}
                     </td>
