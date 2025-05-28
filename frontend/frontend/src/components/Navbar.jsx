@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import WishlistIcon from './WishlistIcon';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -11,7 +12,6 @@ export default function Navbar() {
     navigate('/');
   };
 
-  
   let navbarClass = 'navbar-dark bg-dark';
   if (location.pathname.startsWith('/games/xbox')) {
     navbarClass = 'navbar-dark bg-xbox';
@@ -39,13 +39,18 @@ export default function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarMenu">
-          <ul className="navbar-nav me-auto gap-lg-3">
+          <ul className="navbar-nav me-auto gap-lg-3 align-items-center">
             <li className="nav-item"><Link className="nav-link" to="/games/xbox">Xbox</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/games/playstation">PlayStation</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/games/nintendo">Nintendo</Link></li>
+            {user && (
+              <li className="nav-item">
+                <WishlistIcon />
+              </li>
+            )}
           </ul>
 
-          <ul className="navbar-nav ms-auto">
+          <ul className="navbar-nav ms-auto align-items-center flex-column flex-lg-row gap-2 gap-lg-0">
             {!user ? (
               <>
                 <li className="nav-item"><Link className="nav-link" to="/register">Registrati</Link></li>
@@ -53,11 +58,23 @@ export default function Navbar() {
               </>
             ) : (
               <li className="nav-item dropdown">
-                <div className="dropdown-toggle d-flex align-items-center gap-2" data-bs-toggle="dropdown" style={{ cursor: 'pointer' }}>
+                <div
+                  className="d-flex align-items-center gap-2"
+                  data-bs-toggle="dropdown"
+                  style={{ cursor: 'pointer' }}
+                >
                   {user.imageUrl ? (
-                    <img src={user.imageUrl} alt="Profilo" className="rounded-circle" style={{ width: '32px', height: '32px', objectFit: 'cover' }} />
+                    <img
+                      src={user.imageUrl}
+                      alt="Profilo"
+                      className="rounded-circle"
+                      style={{ width: '32px', height: '32px', objectFit: 'cover' }}
+                    />
                   ) : (
-                    <div className="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center" style={{ width: '32px', height: '32px', fontSize: '0.9rem' }}>
+                    <div
+                      className="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center"
+                      style={{ width: '32px', height: '32px', fontSize: '0.9rem' }}
+                    >
                       {user.nome?.charAt(0).toUpperCase()}{user.cognome?.charAt(0).toUpperCase()}
                     </div>
                   )}

@@ -268,6 +268,11 @@ footer a:hover {
   z-index: 1;
 }
 
+.card-wrapper:hover {
+  opacity: 1;
+}
+
+
 /* Effetto glow solo in hover */
 .card-wrapper::before {
   content: '';
@@ -321,3 +326,25 @@ footer a:hover {
   min-width: 300px;
   box-shadow: 0 0 15px rgba(255,255,255,0.1);
 }
+
+.wishlist-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  padding: 4px;
+}
+
+.wishlist-icon:hover {
+  transform: scale(1.1);
+}
+
+.wishlist-icon.hearted {
+  color: red;
+  border-color: red;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+

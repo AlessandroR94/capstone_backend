@@ -16,7 +16,10 @@ import MyRentals from './pages/MyRentals';
 import Register from './pages/Register';
 import RecuperoUsername from './pages/RecuperoUsername';
 import RecuperoPassword from './pages/RecuperoPassword';
-import ResetPassword from './pages//ResetPassword'
+import ResetPassword from './pages//ResetPassword';
+import Wishlist from './pages/Wishlist';
+
+
 
 function AppContent() {
   const location = useLocation();
@@ -38,6 +41,7 @@ function AppContent() {
         <Route path="/recupero-username" element={<RecuperoUsername />} />
         <Route path="/recupero-password" element={<RecuperoPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
     </PageFade>
   );
