@@ -1,0 +1,94 @@
+/* === CARD BASE === */
+.card-game {
+  border-radius: 0.75rem;
+  transition: transform 0.2s ease;
+  overflow: hidden;
+}
+
+/* Hover generico per tutte le card */
+.card-game:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+}
+
+/* === CARD COLORI E GLOW PER PIATTAFORMA === */
+
+.card-xbox {
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 12px rgba(46, 255, 109, 0.5);
+  border: 2px solid rgba(46, 255, 109, 0.6);
+}
+.card-xbox:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 24px rgba(46, 255, 109, 0.8);
+}
+
+.card-playstation {
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 12px rgba(0, 119, 255, 0.5);
+  border: 2px solid rgba(0, 119, 255, 0.6);
+}
+.card-playstation:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 24px rgba(0, 119, 255, 0.8);
+}
+
+.card-nintendo {
+  background-color: #E60012;
+  color: white;
+  box-shadow: 0 0 12px rgba(255, 0, 80, 0.5);
+  border: 2px solid rgba(255, 0, 80, 0.6);
+}
+.card-nintendo:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 24px rgba(255, 0, 80, 0.8);
+}
+
+.card-all {
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+.card-all:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.6);
+}
+
+/* === BOTTONI NOLEGGIA === */
+
+.btn-xbox {
+  background-color: #107C10;
+  color: white;
+  border: none;
+}
+.btn-xbox:hover {
+  background-color: #0e6c0e;
+}
+
+.btn-playstation {
+  background-color: #003791;
+  color: white;
+  border: none;
+}
+.btn-playstation:hover {
+  background-color: #00266d;
+}
+
+.btn-nintendo {
+  background-color: white;
+  color: #E60012;
+  border: 2px solid #E60012;
+}
+.btn-nintendo:hover {
+  background-color: #f5f5f5;
+  color: #b0000d;
+}
+
+/* === TESTO PIATTAFORME (facoltativo) === */
+
+.text-playstation {
+  color: #003791;
+}

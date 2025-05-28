@@ -160,6 +160,49 @@ const renewExpiredRentals = async () => {
   console.log(`Rinnovati ${expiredRentals.length} noleggi automaticamente`);
 };
 
+const endRentalEarly = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const rental = await Rental.findById(id).populate('game');
+    if (!rental) return res.status(404).json({ message: 'Noleggio non trovato' });
+    if (rental.status !== 'attivo') return res.status(400).json({ message: 'Noleggio già terminato' });
+
+    const now = new Date();
+    const daysUsed = Math.max(1, Math.ceil((now - rental.startDate) / (1000 * 60 * 60 * 24)));
+    const prezzoUtilizzato = daysUsed * rental.game.dailyPrice;
+    const rimborso = Math.max(0, rental.totalPrice - prezzoUtilizzato);
+
+    rental.status = 'terminato';
+    rental.actualEndDate = now;
+    await rental.save();
+
+    rental.game.quantityAvailable += 1;
+    await rental.game.save();
+
+    const user = await User.findById(rental.user);
+
+    await sendEmail({
+      to: user.email,
+      subject: `Noleggio terminato anticipatamente`,
+      html: `
+    <h2>Ciao ${user.nome},</h2>
+    <p>Hai terminato anticipatamente il noleggio di <strong>${rental.game.title}</strong>.</p>
+    <p>Hai usato il gioco per <strong>${daysUsed} giorno/i</strong>, fino al <strong>${now.toLocaleDateString()}</strong>.</p>
+    <p>Rimborso calcolato: <strong>€${rimborso.toFixed(2)}</strong></p>
+    <p>Riceverai l'importo entro 5-7 giorni lavorativi sul metodo di pagamento utilizzato.</p>
+    <hr />
+    <p>Grazie per aver scelto GameBusters! 🎮</p>
+  `
+    });
+
+    res.json({ message: 'Noleggio terminato anticipatamente', rimborso });
+  } catch (err) {
+    res.status(500).json({ message: 'Errore nel terminare il noleggio', error: err.message });
+  }
+};
+
+
 
 
 module.exports = {
@@ -168,4 +211,5 @@ module.exports = {
   returnRental,
   getAllRentals,
   renewExpiredRentals,
+  endRentalEarly,
 };

@@ -7,7 +7,8 @@ const rentalSchema = new mongoose.Schema({
   endDate: { type: Date, required: true },
   days: { type: Number, required: true },
   totalPrice: { type: Number, required: true },
-  status: { type: String, enum: ['attivo', 'restituito', 'scaduto'], default: 'attivo' },
+  actualEndDate: { type: Date },
+  status: { type: String, enum: ['attivo', 'restituito', 'scaduto', 'terminato'], default: 'attivo' },
   shippingInfo: {
     nome: String,
     cognome: String,

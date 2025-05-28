@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
   }
 
 
-  // Età minima 16 anni (Esiste un metodo di scrittura più raccolto? Chiedere ad Alessandro)
+  // Età minima 16 anni 
 
   const oggi = new Date();
   const dataNascita = new Date(dataDiNascita);
@@ -54,7 +54,7 @@ const registerUser = async (req, res) => {
     });
 
     if (user) {
-      // INVIO EMAIL BENVENUTO
+      // Invio email di Benvenuto
       await sendEmail({
         to: user.email,
         subject: 'Benvenuto su GameBusters 🎮',
