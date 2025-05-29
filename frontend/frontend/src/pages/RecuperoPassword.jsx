@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axiosInstance'
 import { Link } from 'react-router-dom';
+import { setGlobalLoading } from '../context/LoadingContext';
 
 export default function RecuperoPassword() {
   const [email, setEmail] = useState('');
@@ -9,10 +10,14 @@ export default function RecuperoPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setGlobalLoading(true);
       await axios.post('http://localhost:3001/api/auth/forgot-password', { email });
       setMessage('Ti abbiamo inviato un link per reimpostare la password.');
     } catch (err) {
       setMessage('Errore: email non trovata o server offline.');
+    }
+    finally {
+      setGlobalLoading(false);
     }
   };
 
@@ -39,6 +44,6 @@ export default function RecuperoPassword() {
         </Link>
       </div>
     </div>
-    
+
   );
 }

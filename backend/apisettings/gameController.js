@@ -150,9 +150,49 @@ const getGameById = async (req, res) => {
   }
 };
 
+const addGameReview = async (req, res) => {
+  const { rating, comment } = req.body;
+
+  if (!rating || rating < 1 || rating > 5) {
+    return res.status(400).json({ message: 'Valutazione non valida' });
+  }
+
+  try {
+    const game = await Game.findById(req.params.id);
+    if (!game) return res.status(404).json({ message: 'Gioco non trovato' });
+
+    const alreadyReviewed = game.reviews.find(
+      r => r.user.toString() === req.user._id.toString()
+    );
+
+    if (alreadyReviewed) {
+      return res.status(400).json({ message: 'Hai già recensito questo gioco' });
+    }
+
+    const review = {
+      user: req.user._id,
+      username: req.user.nome + ' ' + req.user.cognome,
+      rating: Number(rating),
+      comment
+    };
+
+    game.reviews.push(review);
+    game.ratingCount = game.reviews.length;
+    game.rating = game.reviews.reduce((acc, item) => item.rating + acc, 0) / game.reviews.length;
+
+    await game.save();
+    res.status(201).json({ message: 'Recensione aggiunta' });
+  } catch (err) {
+    console.error('Errore nella recensione:', err);
+    res.status(500).json({ message: 'Errore durante l\'aggiunta della recensione' });
+  }
+};
+
+
 module.exports = {
   importGamesFromRawg,
   getGamesByPlatform,
   filterAndSearchGames,
-  getGameById
+  getGameById,
+  addGameReview
 };

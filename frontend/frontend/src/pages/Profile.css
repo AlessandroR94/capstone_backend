@@ -47,6 +47,7 @@
 
 .badge-termina {
   background-color: red;
+  margin-left: 5px !important;
 }
 
 @keyframes pulse {

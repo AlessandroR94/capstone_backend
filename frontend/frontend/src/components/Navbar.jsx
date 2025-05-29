@@ -44,7 +44,7 @@ export default function Navbar() {
             <li className="nav-item"><Link className="nav-link" to="/games/playstation">PlayStation</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/games/nintendo">Nintendo</Link></li>
             {user && (
-              <li className="nav-item">
+              <li className="nav-item wishlistPadding">
                 <WishlistIcon />
               </li>
             )}

@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axiosInstance'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import SuccessMessage from '../components/SuccessMessage';
+import { setGlobalLoading } from '../context/LoadingContext';
 
 export default function Register() {
   const { login } = useAuth();
@@ -32,11 +33,15 @@ export default function Register() {
     setError('');
 
     try {
+      setGlobalLoading(true);
       const res = await axios.post(`http://localhost:3001/api/auth/register`, form);
       login(res.data);
       setShowSuccess(true);
     } catch (err) {
       setError(err.response?.data?.message || 'Errore nella registrazione');
+    }
+    finally {
+      setGlobalLoading(false);
     }
   };
 

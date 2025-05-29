@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../api/axiosInstance'
 
 const BASE_URL = 'http://localhost:3001/api/games';
 

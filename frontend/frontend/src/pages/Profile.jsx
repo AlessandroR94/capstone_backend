@@ -1,6 +1,6 @@
 import { useAuth } from '../context/AuthContext';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axiosInstance'
 import './Profile.css';
 import ConfirmationModal from '../components/Confirmation';
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../api/axiosInstance'
 import GamesCard from '../components/GamesCard';
 import SearchBar from '../components/SearchBar';
 import Pagination from '../components/Pagination';
