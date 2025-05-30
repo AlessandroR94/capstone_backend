@@ -86,7 +86,7 @@ export default function Login() {
 
       <hr className="my-4" />
 
-      <button onClick={handleGoogleLogin} className="btn btn-outline-dark w-100">
+      <button onClick={handleGoogleLogin} className="btn btn-primary w-100">
         Accedi con Google
       </button>
     </div>

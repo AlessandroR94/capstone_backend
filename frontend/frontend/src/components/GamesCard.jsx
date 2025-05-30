@@ -12,7 +12,7 @@ export default function GamesCard({ game, cardClass = '', buttonClass = 'btn-ren
   };
 
   return (
-    <div className="col-sm-6 col-md-4 col-lg-3 mb-4">
+    <div className="col-6 col-md-4 col-lg-3 mb-4">
       <div className={`card-wrapper ${cardClass}`}>
         <div className="card card-game h-100 shadow-sm position-relative">
           <div className="wishlist-icon" onClick={() => toggleWishlist(game)}>
@@ -30,7 +30,6 @@ export default function GamesCard({ game, cardClass = '', buttonClass = 'btn-ren
             <h5 className="card-title">{game.title}</h5>
             <p className="card-text text-muted">{game.platform}</p>
 
-            {/* Stelle e numero voti */}
             <div
               className="d-flex align-items-center mb-2"
               style={{ cursor: 'pointer' }}
@@ -48,13 +47,19 @@ export default function GamesCard({ game, cardClass = '', buttonClass = 'btn-ren
             </div>
 
             <p className="card-text">€{game.dailyPrice.toFixed(2)} / giorno</p>
-            <p className="card-text text-success">
-              Disponibilità: {game.quantityAvailable}
-            </p>
 
-            <Link to={`/rent/${game._id}`} className={`btn ${buttonClass} mt-auto`}>
-              Noleggia
-            </Link>
+            {game.quantityAvailable > 0 ? (
+              <>
+                <p className="card-text text-success">
+                  Disponibilità: {game.quantityAvailable}
+                </p>
+                <Link to={`/rent/${game._id}`} className={`btn ${buttonClass} mt-auto`}>
+                  Noleggia
+                </Link>
+              </>
+            ) : (
+              <p className="card-text text-danger fw-bold">Nessuna disponibilità</p>
+            )}
           </div>
         </div>
       </div>
