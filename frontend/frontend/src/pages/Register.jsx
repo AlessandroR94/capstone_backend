@@ -68,7 +68,18 @@ export default function Register() {
         </div>
         <div className="mb-3">
           <label className="form-label">Email</label>
-          <input type="email" name="email" className="form-control" required value={form.email} onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            className="form-control"
+            value={form.email}
+            onChange={handleChange}
+            pattern="^[^\s@]+@[^\s@]+\.(it|com)$"
+            title="Inserisci un'email che termina con .it o .com"
+            required
+          />
+
+
         </div>
         <div className="mb-3">
           <label className="form-label">Data di nascita</label>
