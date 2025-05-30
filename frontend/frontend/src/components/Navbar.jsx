@@ -40,13 +40,15 @@ export default function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarMenu">
           <ul className="navbar-nav me-auto gap-lg-3">
-            <li className="nav-item"><Link className="nav-link" to="/games/xbox">Xbox</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/games/playstation">PlayStation</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/games/nintendo">Nintendo</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/games/xbox"><i class="fab fa-xbox console-icon"></i>
+              Xbox</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/games/playstation"><i class="fab fa-playstation console-icon"></i>PlayStation</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/games/nintendo">
+            <i class="bi bi-nintendo-switch console-icon"></i>
+              Nintendo</Link></li>
             <li className="nav-item wishlistPadding">
               <WishlistIcon />
             </li>
-
           </ul>
 
           <ul className="navbar-nav ms-auto align-items-center flex-column flex-lg-row gap-2 gap-lg-0">

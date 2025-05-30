@@ -10,9 +10,11 @@ export default function WishlistIcon() {
       to="/wishlist"
       className="position-relative d-inline-block me-3 text-decoration-none text-light"
     >
-      <FaHeart size={24} />
+      <FaHeart className='console-icon' size={18} />
+      <span style={{ position: 'relative', top: '2px' }}>Wishlist</span>
       {wishlist.length > 0 && (
-        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        <span className="number-wishlist position-absolute top-0 start-100 translate-middle badge rounded-pill"
+          style={{ backgroundColor: 'white', color: 'red' }}>
           {wishlist.length}
         </span>
       )}

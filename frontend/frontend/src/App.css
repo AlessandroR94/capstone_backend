@@ -369,3 +369,11 @@ footer a:hover {
   align-items: center;
   z-index: 9999; /* in cima a tutto */
 }
+
+.console-icon {
+  margin-right: 10px;
+}
+
+.number-wishlist {
+  margin-top: 4px;
+}
