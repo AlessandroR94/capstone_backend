@@ -1,10 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from '../api/axiosInstance'
+import axios from '../api/axiosInstance';
 import { useAuth } from '../context/AuthContext';
 import SuccessMessage from '../components/SuccessMessage';
 import { FaStar } from 'react-icons/fa';
 import { setGlobalLoading } from '../context/LoadingContext';
+import LoginModal from '../components/LoginModal';
 
 export default function RentPage() {
   const { gameId } = useParams();
@@ -16,7 +17,7 @@ export default function RentPage() {
   const [comment, setComment] = useState('');
   const { user } = useAuth();
   const [visibleReviews, setVisibleReviews] = useState(4);
-
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const [form, setForm] = useState({
     nome: '',
@@ -49,7 +50,7 @@ export default function RentPage() {
 
     try {
       setGlobalLoading(true);
-      const res = await axios.post(
+      await axios.post(
         `http://localhost:3001/api/rentals`,
         {
           gameId: game._id,
@@ -72,14 +73,18 @@ export default function RentPage() {
     } catch (err) {
       console.error('Errore durante la creazione del noleggio:', err);
       alert('Errore durante la creazione del noleggio');
-    }
-    finally {
+    } finally {
       setGlobalLoading(false);
     }
   };
 
   const handleReview = async () => {
-    if (!user || rating === 0) return;
+    if (!user) {
+      setShowLoginModal(true);
+      return;
+    }
+
+    if (rating === 0) return;
 
     try {
       await axios.post(
@@ -101,6 +106,7 @@ export default function RentPage() {
       alert('Errore durante l\'invio della recensione');
     }
   };
+
   if (!game) return <div className="container mt-5">Caricamento...</div>;
 
   return (
@@ -217,7 +223,6 @@ export default function RentPage() {
             {reviews.length} {reviews.length === 1 ? 'recensione' : 'recensioni'}
           </p>
 
-
           <div className="mb-2">
             {[1, 2, 3, 4, 5].map((s) => (
               <FaStar
@@ -266,10 +271,12 @@ export default function RentPage() {
               </button>
             </div>
           )}
-
-
         </div>
       </div>
+
+      {showLoginModal && (
+        <LoginModal onClose={() => setShowLoginModal(false)} />
+      )}
     </div>
   );
 }

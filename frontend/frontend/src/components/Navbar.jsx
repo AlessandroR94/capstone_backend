@@ -43,11 +43,10 @@ export default function Navbar() {
             <li className="nav-item"><Link className="nav-link" to="/games/xbox">Xbox</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/games/playstation">PlayStation</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/games/nintendo">Nintendo</Link></li>
-            {user && (
-              <li className="nav-item wishlistPadding">
-                <WishlistIcon />
-              </li>
-            )}
+            <li className="nav-item wishlistPadding">
+              <WishlistIcon />
+            </li>
+
           </ul>
 
           <ul className="navbar-nav ms-auto align-items-center flex-column flex-lg-row gap-2 gap-lg-0">

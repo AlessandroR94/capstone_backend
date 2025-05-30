@@ -5,7 +5,10 @@ const { protect } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 const User = require('../models/User');
 const cloudinary = require('cloudinary').v2;
+const { loginUser } = require('../apisettings/userController');
 
+
+router.post('/login', loginUser);
 router.post(
   '/upload-profile',
   protect,

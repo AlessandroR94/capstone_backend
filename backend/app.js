@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const passport = require('passport');
 const reviewRoutes = require('./routes/reviewRoutes')
+const userRoutes = require('./routes/userRoutes');
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api/rentals', require('./routes/rentalRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/users', userRoutes);
 
 
 

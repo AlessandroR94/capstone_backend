@@ -1,4 +1,41 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+
+const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Credenziali non valide' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Credenziali non valide' });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '7d'
+    });
+
+    res.json({
+      _id: user._id,
+      username: user.username,
+      nome: user.nome,
+      cognome: user.cognome,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      isProfileComplete: user.isProfileComplete,
+      token
+    });
+  } catch (err) {
+    console.error('Errore nel login:', err);
+    res.status(500).json({ message: 'Errore durante il login' });
+  }
+};
 
 const updateUserProfile = async (req, res) => {
   const { username, nome, cognome, dataDiNascita } = req.body;
@@ -38,5 +75,6 @@ const updateUserProfile = async (req, res) => {
 };
 
 module.exports = {
-  updateUserProfile
+  updateUserProfile,
+  loginUser
 };
