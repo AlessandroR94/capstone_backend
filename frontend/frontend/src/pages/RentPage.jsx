@@ -46,7 +46,10 @@ export default function RentPage() {
   };
 
   const handleSubmit = async () => {
-    if (!user) return;
+    if (!user) {
+      setShowLoginModal(true);
+      return;
+    }
 
     try {
       setGlobalLoading(true);
