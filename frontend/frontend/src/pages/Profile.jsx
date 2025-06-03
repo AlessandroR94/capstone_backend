@@ -153,7 +153,7 @@ export default function Profile() {
       </div>
 
       <div className="profile-glass">
-        <h4 className="text-white mb-3">📜 Cronologia Noleggi</h4>
+        <h4 className="text-white mb-3"><i className="bi bi-clock-history profilePageIcon"></i>Cronologia Noleggi</h4>
         {loading ? (
           <p>Caricamento...</p>
         ) : rentals.length === 0 ? (
@@ -163,11 +163,11 @@ export default function Profile() {
             <table className="table table-dark table-striped table-bordered">
               <thead>
                 <tr>
-                  <th>🎮 Gioco</th>
-                  <th>📅 Inizio</th>
-                  <th>📆 Fine</th>
-                  <th>💰 Prezzo</th>
-                  <th>📌 Stato</th>
+                  <th><i className="bi bi-joystick profilePageIcon"></i>Gioco</th>
+                  <th><i className="bi bi-calendar profilePageIcon"></i>Inizio</th>
+                  <th><i className="bi bi-calendar-check profilePageIcon"></i>Fine</th>
+                  <th><i className="bi bi-coin profilePageIcon"></i>Prezzo</th>
+                  <th><i className="bi bi-device-ssd profilePageIcon"></i>Stato</th>
                 </tr>
               </thead>
               <tbody>

@@ -174,7 +174,7 @@ const endRentalEarly = async (req, res) => {
     const rimborso = Math.max(0, rental.totalPrice - prezzoUtilizzato);
 
     rental.status = 'terminato';
-    rental.actualEndDate = now;
+    rental.endDate = now;
     await rental.save();
 
     rental.game.quantityAvailable += 1;
