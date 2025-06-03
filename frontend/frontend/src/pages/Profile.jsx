@@ -179,7 +179,7 @@ export default function Profile() {
                     <td>€{rental.totalPrice.toFixed(2)}</td>
                     <td>
                       <span
-                        className={`badge badge-animated ${rental.status === 'attivo'
+                        className={`badge ${rental.status === 'attivo'
                           ? 'badge-success'
                           : rental.status === 'terminato'
                           ? 'badge-warning'
@@ -190,7 +190,7 @@ export default function Profile() {
                       </span>
                       {rental.status === 'attivo' && (
                         <span
-                          className="badge badge-animated badge-termina"
+                          className="badge badge-termina"
                           onClick={() => handleEndRental(rental._id)}
                         >
                           Termina
