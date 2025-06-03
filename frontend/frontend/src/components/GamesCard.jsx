@@ -12,9 +12,9 @@ export default function GamesCard({ game, cardClass = '', buttonClass = 'btn-ren
   };
 
   return (
-    <div className="col-6 col-md-4 col-lg-3 mb-4">
+    <div className="col-6 col-md-4 col-lg-3 mb-4 d-flex">
       <div className={`card-wrapper ${cardClass}`}>
-        <div className="card card-game h-100 shadow-sm position-relative">
+        <div className="card card-game h-100 w-100 shadow-sm position-relative">
           <div className="wishlist-icon" onClick={() => toggleWishlist(game)}>
             {isInWishlist ? <FaHeart color="red" /> : <FaRegHeart color="white" />}
           </div>

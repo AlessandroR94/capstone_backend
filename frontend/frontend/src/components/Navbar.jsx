@@ -69,18 +69,18 @@ export default function Navbar() {
                       src={user.imageUrl}
                       alt="Profilo"
                       className="rounded-circle"
-                      style={{ width: '32px', height: '32px', objectFit: 'cover' }}
+                      style={{ width: '33px', height: '33px', objectFit: 'cover' }}
                     />
                   ) : (
                     <div
-                      className="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center"
-                      style={{ width: '32px', height: '32px', fontSize: '0.9rem' }}
+                      className="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center mx-auto"
+                      style={{ width: '30px', height: '30px', fontSize: '0.9rem' }}
                     >
                       {user.nome?.charAt(0).toUpperCase()}{user.cognome?.charAt(0).toUpperCase()}
                     </div>
                   )}
                 </div>
-                <ul className="dropdown-menu dropdown-menu-end mt-2">
+                <ul className="dropdown-menu dropdown-menu-end mt-2 justify-content-center align-items-center text-center mx-auto">
                   <li><Link className="dropdown-item" to="/profile">Profilo</Link></li>
                   <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                 </ul>

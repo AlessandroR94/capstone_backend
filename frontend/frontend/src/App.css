@@ -1,11 +1,12 @@
 body {
-  background-color: #121212; /* sfondo nero opaco */
-  color: white;            /* testo chiaro */
+  background-color: #121212;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
 }
 
 
 .btn-rent {
-  background-color: #e60012; /* rosso Nintendo */
+  background-color: #e60012;
   border: none;
   color: white;
 }
@@ -118,7 +119,7 @@ footer a:hover {
   color: #003791;
 }
 
-/* --- Xbox --- */
+
 .pagination-xbox .page-item.active .page-link {
   background-color: #107C10 !important;
   border-color: #107C10 !important;
@@ -129,7 +130,6 @@ footer a:hover {
   color: #107C10 !important;
 }
 
-/* --- PlayStation --- */
 .pagination-playstation .page-item.active .page-link {
   background-color: #003791 !important;
   border-color: #003791 !important;
@@ -196,17 +196,17 @@ footer a:hover {
 }
 
 .toast-content {
-  background-color: rgba(40, 167, 69, 0.15); /* verde chiaro trasparente */
-  color: #198754; /* verde più visibile per il testo e l'emoji */
+  background-color: rgba(40, 167, 69, 0.15); 
+  color: #198754;
   border: 1px solid #198754;
   font-weight: 500;
   border-radius: 12px;
   padding: 0.75rem 1.5rem;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(3px); /* opzionale, per un effetto più elegante */
+  backdrop-filter: blur(3px); 
 }
 
-/* ✅ UNIFICATA: CARD GLOW & BASE STYLE */
+
 .card-game {
   position: relative;
   background-color: #ffffff;
@@ -218,7 +218,7 @@ footer a:hover {
   z-index: 1;
 }
 
-/* --- GLOW ONLY ON HOVER --- */
+
 .card-game::before {
   content: '';
   position: absolute;
@@ -233,30 +233,25 @@ footer a:hover {
   transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover effetto leggero */
 .card-game:hover {
   transform: scale(1.02);
 }
 
-/* Default glow */
 .card-game:hover::before {
   box-shadow: 0 0 16px 4px rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
 
-/* Glow Xbox */
 .card-xbox:hover::before {
   box-shadow: 0 0 18px 5px #198754;
   opacity: 1;
 }
 
-/* Glow PlayStation */
 .card-playstation:hover::before {
   box-shadow: 0 0 18px 5px #003791;
   opacity: 1;
 }
 
-/* Glow Nintendo */
 .card-nintendo:hover::before {
   box-shadow: 0 0 18px 5px #ff0033;
   opacity: 1;
@@ -289,13 +284,13 @@ footer a:hover {
   pointer-events: none;
 }
 
-/* Glow di default (catalogo) */
+
 .card-wrapper:hover::before {
   box-shadow: 0 0 16px 4px rgba(252, 252, 252, 0.4);
   opacity: 1;
 }
 
-/* Glow personalizzato */
+
 .card-wrapper.card-xbox:hover::before {
   box-shadow: 0 0 18px 5px #198754;
 }

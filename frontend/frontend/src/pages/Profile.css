@@ -1,6 +1,6 @@
 .profile-page {
-  font-family: 'Poppins', sans-serif;
-  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  color: white;
 }
 
 .profile-glass {
@@ -14,10 +14,10 @@
 }
 
 .avatar-glow {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   background: #111;
-  border: 2px solid #00ffff;
+  border: 2px solid #fbfcfc;
   color: #00ffff;
   font-size: 2rem;
   border-radius: 50%;
@@ -47,6 +47,7 @@
 .badge-termina {
   background-color: red;
   margin-left: 1px !important;
+  cursor: pointer;
 }
 
 

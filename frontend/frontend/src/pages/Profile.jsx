@@ -23,7 +23,7 @@ export default function Profile() {
         });
         setRentals(res.data);
       } catch (err) {
-        console.error('❌ Errore nel recupero dei noleggi:', err);
+        console.error('Errore nel recupero dei noleggi:', err);
       } finally {
         setLoading(false);
       }
@@ -86,7 +86,7 @@ export default function Profile() {
       )}
 
       <div className="profile-glass mb-5">
-        <h2 className="text-white mb-4">👤 Profilo Utente</h2>
+        <h2 className="text-white mb-4"><i className="bi bi-person profilePageIcon"></i>Profilo Utente</h2>
 
         <div className="d-flex align-items-center gap-4 mb-3">
           {user.imageUrl ? (
@@ -145,10 +145,10 @@ export default function Profile() {
         </div>
 
         <ul className="list-unstyled text-white">
-          <li><strong>🆔 Username:</strong> {user.username}</li>
-          <li><strong>📛 Nome:</strong> {user.nome}</li>
-          <li><strong>👤 Cognome:</strong> {user.cognome}</li>
-          <li><strong>📧 Email:</strong> {user.email}</li>
+          <li><strong><i className="bi bi-sd-card profilePageIcon"></i>Username:</strong> {user.username}</li>
+          <li><strong><i className="bi bi-alphabet-uppercase profilePageIcon"></i>Nome:</strong> {user.nome}</li>
+          <li><strong><i className="bi bi-alphabet profilePageIcon"></i>Cognome:</strong> {user.cognome}</li>
+          <li><strong><i className="bi bi-envelope profilePageIcon"></i>Email:</strong> {user.email}</li>
         </ul>
       </div>
 
