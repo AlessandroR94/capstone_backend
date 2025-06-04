@@ -25,10 +25,12 @@ export default function RentPage() {
     indirizzo: '',
     città: '',
     provincia: '',
+    cap: '',
     telefono: '',
     cardName: '',
     cardNumber: '',
-    expiry: ''
+    expiry: '',
+    cvv: ''
   });
 
   useEffect(() => {
@@ -64,6 +66,7 @@ export default function RentPage() {
             indirizzo: form.indirizzo,
             città: form.città,
             provincia: form.provincia,
+            cap: form.cap,
             telefono: form.telefono
           }
         },
@@ -136,15 +139,15 @@ export default function RentPage() {
 
       <div className="row d-flex align-items-start">
         <div className="col-md-6">
-          <h5>📅 Seleziona durata</h5>
+          <h5>Seleziona durata</h5>
           <select className="form-select mb-3" value={days} onChange={(e) => setDays(Number(e.target.value))}>
             <option value={7}>7 giorni</option>
             <option value={14}>14 giorni</option>
             <option value={30}>30 giorni</option>
           </select>
 
-          <h5 className="mt-4">📦 Spedizione</h5>
-          {["nome", "cognome", "indirizzo", "città", "provincia"].map((field) => (
+          <h5 className="mt-4">Spedizione</h5>
+          {["nome", "cognome", "indirizzo", "città", "provincia", "cap"].map((field) => (
             <input
               key={field}
               type="text"
@@ -172,7 +175,7 @@ export default function RentPage() {
             required
           />
 
-          <h5 className="mt-4">💳 Carta</h5>
+          <h5 className="mt-4">Carta</h5>
           <input
             type="text"
             name="cardName"
@@ -209,6 +212,22 @@ export default function RentPage() {
             maxLength="5"
             onKeyDown={(e) => {
               if (!/[0-9/]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
+                e.preventDefault();
+              }
+            }}
+            required
+          />
+
+          <input
+            type="text"
+            name="cvv"
+            className="form-control mb-2"
+            placeholder="CVV"
+            value={form.cvv}
+            onChange={handleChange}
+            maxLength="3"
+            onKeyDown={(e) => {
+              if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
                 e.preventDefault();
               }
             }}
