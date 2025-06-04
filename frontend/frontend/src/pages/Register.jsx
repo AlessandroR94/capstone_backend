@@ -83,7 +83,19 @@ export default function Register() {
         </div>
         <div className="mb-3">
           <label className="form-label">Data di nascita</label>
-          <input type="date" name="dataDiNascita" className="form-control" required value={form.dataDiNascita} onChange={handleChange} />
+          <input
+            type="date"
+            name="dataDiNascita"
+            className="form-control"
+            value={form.dataDiNascita}
+            onChange={handleChange}
+            required
+            max={new Date().toISOString().split('T')[0]}
+            min={`${new Date().getFullYear() - 90}-01-01`}
+            onInvalid={(e) => e.target.setCustomValidity('Per registrarti devi avere meno di 90 anni.')}
+            onInput={(e) => e.target.setCustomValidity('')}
+          />
+
         </div>
         <div className="mb-3">
           <label className="form-label">Password</label>
