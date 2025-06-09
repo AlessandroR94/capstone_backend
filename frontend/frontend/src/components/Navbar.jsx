@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import WishlistIcon from './WishlistIcon';
+import logoGame from '../assets/logoGame.png';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -24,7 +25,7 @@ export default function Navbar() {
   return (
     <nav className={`navbar navbar-expand-lg ${navbarClass} shadow-sm px-4`}>
       <div className="container-fluid">
-        <Link className="navbar-brand fw-bold" to="/">🎮 GameBusters</Link>
+        <Link className="navbar-brand fw-bold" to="/"><img src={logoGame} alt="GameBusters Logo" className="logo" />GameBusters</Link>
 
         <button
           className="navbar-toggler"
