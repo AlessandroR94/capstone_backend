@@ -5,22 +5,34 @@ const axiosInstance = axios.create({
   baseURL: 'http://localhost:3001/api',
 });
 
-// Interceptor per mostrare loading
 axiosInstance.interceptors.request.use((config) => {
   setGlobalLoading(true);
+
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
   return config;
 }, (error) => {
   setGlobalLoading(false);
   return Promise.reject(error);
 });
 
-// Interceptor per nascondere loading
+
 axiosInstance.interceptors.response.use((response) => {
   setGlobalLoading(false);
   return response;
 }, (error) => {
   setGlobalLoading(false);
+
+  if (error.response && error.response.status === 401) {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+  }
+
   return Promise.reject(error);
 });
+
 
 export default axiosInstance;

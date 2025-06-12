@@ -22,6 +22,9 @@ export default function Login() {
 
     try {
       const res = await axios.post('http://localhost:3001/api/auth/login', form);
+
+      localStorage.setItem('token', res.data.token);
+      
       login(res.data);
 
       if (!res.data.isProfileComplete) {
